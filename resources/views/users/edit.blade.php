@@ -11,10 +11,11 @@
                         <a href="{{ route('users.index') }}" class="btn btn-success mt-8">Back</a>
 
 
-                        <form action="{{route('users.store')}}" method="post">
+                        <form action="{{route('users.update',$user->id)}}" method="post">
 
 
                             @csrf
+                            @method("put")
 
                             
 
