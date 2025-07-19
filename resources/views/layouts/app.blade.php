@@ -50,9 +50,15 @@
                             @endif
                         @else
 
+
+                        
                            <li class="nav-item">
                                     <a class="nav-link" href="{{ route('users.index') }}">user manage</a>
                                 </li>
+
+
+
+
 
 
                             <li class="nav-item dropdown">
@@ -79,6 +85,12 @@
         </nav>
 
         <main class="py-4">
+            @if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
             @yield('content')
         </main>
     </div>

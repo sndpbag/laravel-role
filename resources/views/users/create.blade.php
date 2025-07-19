@@ -11,16 +11,12 @@
                         <a href="{{ route('users.index') }}" class="btn btn-success mt-8">Back</a>
 
 
-                        <form action="{{users.store}}" method="post">
+                        <form action="{{route('users.store')}}" method="post">
 
 
                             @csrf
 
-                            @if (session('success'))
-                                <div class="alert alert-success">
-                                    {{ $value}}
-                                </div>
-                            @endif
+                            
 
 
                             {{-- name --}}
