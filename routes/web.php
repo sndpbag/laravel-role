@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\productController;
 use App\Http\Controllers\roleController;
+ 
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
