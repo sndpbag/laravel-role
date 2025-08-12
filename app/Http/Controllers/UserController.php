@@ -74,7 +74,8 @@ class UserController extends Controller
     {
         //
       $user =  User::find($id);
-      return view("users.edit",compact('user'));
+      $roles = Role::all();
+      return view("users.edit",compact('user','roles'));
     }
 
     /**
@@ -95,7 +96,7 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->save();
-
+ $user->syncRoles($request->roles);
               return redirect()->route("users.index")->with("success","User Updated successfully.");
 
     }

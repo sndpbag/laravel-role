@@ -41,7 +41,7 @@
                             </div>
 
 
-
+{{-- role selecte --}}
                                     <div class="form-group">
                                 <label for="exampleInputEmail1">Roles</label>
                                 <select class="form-control" name="roles[]" multiple id="">

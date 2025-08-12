@@ -41,6 +41,18 @@
                                 @enderror
                             </div>
 
+                            {{-- role selected --}}
+
+                                     <div class="form-group">
+                                <label for="exampleInputEmail1">Roles</label>
+                                <select class="form-control" name="roles[]" multiple id="">
+                                    <option value="">Select Role</option>
+                                    @foreach($roles as $role)
+                                        <option value="{{$role->name}}  " {{$user->hasRole($role->name) ? 'selected': ''}}>{{$role->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
                             {{-- password --}}
 
 
