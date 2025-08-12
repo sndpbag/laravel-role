@@ -11,10 +11,11 @@
                         <a href="{{ route('roles.index') }}" class="btn btn-success mt-8">Back</a>
 
 
-                        <form action="{{route('roles.store')}}" method="post">
+                        <form action="{{route('roles.update',$role->id) }}" method="post">
 
 
                             @csrf
+                            @method("PUT")
 
                             
 
@@ -22,7 +23,7 @@
                             {{-- name --}}
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Role Name</label>
-                                <input type="text" name="role" class="form-control" id="exampleInputProduct"
+                                <input type="text" name="name" value="{{$role->name}}" class="form-control" id="exampleInputProduct"
                                     aria-describedby="emailHelp" placeholder="Enter Role">
                                 @error('role')
                                     <span class="text-danger">{{ $message }}</span>
@@ -38,7 +39,7 @@
                                     @foreach ($permissions as $permission)
                                           
                                          <label>
-                                         <input type="checkbox" name="permissions[{{$permission->name}}]" value="{{$permission->name}}"  id="exampleInputProduct"
+                                         <input type="checkbox" name="permissions[{{$permission->name}}]" {{$role->hasPermissionTo($permission->name) ? 'checked': ''}} value="{{$permission->name}}"  id="exampleInputProduct"
                                      >{{$permission->name}} <label>
                                     @endforeach
                              

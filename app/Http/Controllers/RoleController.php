@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class RoleController extends Controller
 {
@@ -13,7 +14,7 @@ class RoleController extends Controller
     public function index()
     {
         $roles = Role::all();
-        return view("roles.index",compact('roles'));
+        return view("roles.index", compact('roles'));
     }
 
     /**
@@ -21,7 +22,8 @@ class RoleController extends Controller
      */
     public function create()
     {
-        return view("roles.create");
+        $permissions = Permission::all();
+        return view("roles.create",  compact("permissions"));
     }
 
     /**
@@ -30,6 +32,18 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            "role" => "required",
+
+        ]);
+
+        $role =   Role::create([
+            "name" => $request->role
+        ]);
+
+        $role->syncPermissions($request->permissions);
+
+        return redirect()->route("roles.index")->with("success", "Role is Created Successfully");
     }
 
     /**
@@ -37,7 +51,7 @@ class RoleController extends Controller
      */
     public function show(string $id)
     {
-        //
+     
     }
 
     /**
@@ -45,7 +59,9 @@ class RoleController extends Controller
      */
     public function edit(string $id)
     {
-        //
+             $role =  Role::find($id);
+              $permissions = Permission::all();
+      return view("roles.edit",compact('role','permissions'));
     }
 
     /**
@@ -53,7 +69,18 @@ class RoleController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            "name" => "required",
+
+        ]);
+
+        $role = Role::find($id);
+        $role ->name = $request->name;
+        $role->save();
+
+        $role->syncPermissions($request->permissions);
+
+        return redirect()->route("roles.index")->with("success", "Role is updated Successfully");
     }
 
     /**
