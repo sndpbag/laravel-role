@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -25,7 +26,8 @@ class UserController extends Controller
     public function create()
     {
         //
-        return view("users.create");
+        $roles = Role::all();
+        return view("users.create",compact('roles'));
     }
 
     /**
@@ -41,11 +43,13 @@ class UserController extends Controller
             "password"=> "required",
         ]);
 
-        User::create([
+      $user =  User::create([
             "name"=>$request->name,
             "email"=> $request->email,
             "password"=> Hash::make($request->password),
         ]);
+
+        $user->syncRoles($request->roles);
 
         return redirect()->route("users.index")->with("success","User Create successfully.");
 
