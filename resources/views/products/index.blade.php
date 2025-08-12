@@ -8,7 +8,9 @@
                     <div class="card-header">{{ __('products') }}</div>
 
                     <div class="card-body">
+                         @can('product-create')
                         <a href="{{route('products.create')}}" class="btn btn-success">Create product</a>
+                        @endcan
                         <table class="table">
                             <thead>
                                 <tr>
@@ -31,11 +33,17 @@
                                             <form action="{{route('products.destroy',$product->id)}}" method="post">
                                             @csrf
                                             @method("DELETE")
+                                                @can('product-edit')
                                             <a href="{{route('products.edit',$product->id)}}" class="btn btn-primary btn-sm">Edit</a>
-                                            <a href="{{route('products.show',$product->id)}}" class="btn btn-primary btn-sm">show</a>
+                                                @endcan
 
+                                            @can('product-list')
+                                            <a href="{{route('products.show',$product->id)}}" class="btn btn-primary btn-sm">show</a>
+                                                 @endcan
+
+                                                 @can('product-delete') 
                                             <button  class="btn btn-danger btn-sm">Delete</button>
-                                        
+                                          @endcan
                                              </form>
 
 

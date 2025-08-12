@@ -16,6 +16,7 @@
                                     <th scope="col">ID</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">Email</th>
+                                    <th scope="col">Roles</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -27,6 +28,11 @@
                                         <td>{{ $user->id }}</td>
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td>
+                                        <td>
+                                            @foreach($user->getRoleNames() as $role)
+                                            <button class="btn btn-success btn-sm">{{$role}}</button>
+                                            @endforeach
+                                        </td>
                                         <td>
                                             <form action="{{route('users.destroy',$user->id)}}" method="post">
                                             @csrf
